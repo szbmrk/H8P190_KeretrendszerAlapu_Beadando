@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Edit Prescription</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="fragments/navbar" th:with="page='prescriptions'"></div>
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Edit Prescription</h2>
+  <form th:action="@{/prescriptions/edit}" method="post">
+    <input type="hidden" th:value="${prescription.id}" name="id"/>
+
+    <div class="mb-3">
+      <label for="appointment" class="form-label">Appointment</label>
+      <select class="form-select" id="appointment" name="appointmentId" required>
+        <option th:each="appointment : ${appointments}"
+                th:value="${appointment.id}"
+                th:text="${appointment.id}"
+                th:selected="${appointment.id == prescription.appointment.id}">
+        </option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="details" class="form-label">Details</label>
+      <textarea class="form-control" id="details" name="details" th:text="${prescription.details}" required></textarea>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <button type="submit" class="btn btn-success btn-sm">Modify</button>
+      <a th:href="@{/prescriptions}" class="btn btn-secondary btn-sm">Cancel</a>
+    </div>
+  </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

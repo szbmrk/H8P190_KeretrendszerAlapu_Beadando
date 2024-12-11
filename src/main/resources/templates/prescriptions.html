@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Manage Prescriptions</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="fragments/navbar" th:with="page='prescriptions'"></div>
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Prescription Management</h2>
+  <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addPrescriptionModal">Add New Prescription</button>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Appointment</th>
+      <th>Patient</th>
+      <th>Doctor</th>
+      <th>Prescription Date</th>
+      <th>Details</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="prescription : ${prescriptions}">
+      <td th:text="${prescription.id}"></td>
+      <td th:text="${prescription.appointment.id}"></td>
+      <td th:text="${prescription.appointment.patient.firstName + ' ' + prescription.appointment.patient.lastName}"></td>
+      <td th:text="${prescription.appointment.doctor.username}"></td>
+      <td th:with="convertedDate=${T(java.util.Date).from(prescription.prescriptionDate.atZone(T(java.time.ZoneId).systemDefault()).toInstant())}"
+          th:text="${#dates.format(convertedDate, 'yyyy-MM-dd HH:mm')}"></td>
+      <td th:text="${prescription.details}"></td>
+      <td>
+        <a th:href="@{/prescriptions/edit/{id}(id=${prescription.id})}" class="btn btn-warning btn-sm">Modify</a>
+        <a th:href="@{/prescriptions/delete/{id}(id=${prescription.id})}" class="btn btn-danger btn-sm"
+           onclick="return confirm('Are you sure you want to delete this prescription?');">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="modal fade" id="addPrescriptionModal" tabindex="-1" aria-labelledby="addPrescriptionModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form th:action="@{/prescriptions}" method="post">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addPrescriptionModalLabel">Add New Prescription</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="appointment" class="form-label">Appointment</label>
+            <select class="form-select" id="appointment" name="appointmentId" required>
+              <option th:each="appointment : ${appointments}"
+                      th:value="${appointment.id}"
+                      th:text="${appointment.id}">
+              </option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="details" class="form-label">Details</label>
+            <textarea class="form-control" id="details" name="details" required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Add Prescription</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
