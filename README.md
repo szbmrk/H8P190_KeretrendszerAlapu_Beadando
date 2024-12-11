@@ -1,2 +1,1 @@
-# H8P190_KeretrendszerAlapu_Beadando
- 
+# Szabó Márk (H8P190) Keretrendszer alapú programozás beadandó
