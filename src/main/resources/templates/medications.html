@@ -18,20 +18,21 @@
       <th>Name</th>
       <th>Quantity</th>
       <th>Pharmacist To Get It From</th>
-      <th>Dispensed Date</th>
-      <th>Actions</th>
+      <th>Prescribed Date</th>
+      <th th:if="${role != 'PHARMACIST'}">Actions</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="medication : ${medications}" th:if="${role == 'ADMIN' || (role == 'DOCTOR' && user.id == medication.prescription.appointment.doctor.id)}">
+    <tr th:each="medication : ${medications}" th:if="${role == 'ADMIN' || (role == 'PHARMACIST' && user.id == medication.pharmacist.id)
+      || (role == 'DOCTOR' && user.id == medication.prescription.appointment.doctor.id)}">
       <td th:text="${medication.id}"></td>
       <td th:text="${medication.prescription.id}"></td>
       <td th:text="${medication.name}"></td>
       <td th:text="${medication.quantity}"></td>
       <td th:text="${medication.pharmacist.username}"></td>
-      <td th:with="convertedDate=${T(java.util.Date).from(medication.dispensedDate.atZone(T(java.time.ZoneId).systemDefault()).toInstant())}"
+      <td th:with="convertedDate=${T(java.util.Date).from(medication.prescribedDate.atZone(T(java.time.ZoneId).systemDefault()).toInstant())}"
           th:text="${#dates.format(convertedDate, 'yyyy-MM-dd HH:mm')}"></td>
-      <td>
+      <td th:if="${role != 'PHARMACIST'}">
         <a th:href="@{/medications/edit/{id}(id=${medication.id})}" class="btn btn-warning btn-sm">Modify</a>
         <a th:href="@{/medications/delete/{id}(id=${medication.id})}" class="btn btn-danger btn-sm"
            onclick="return confirm('Are you sure you want to delete this medication?');">Delete</a>
@@ -80,10 +81,6 @@
             </select>
           </div>
 
-          <div class="mb-3">
-            <label for="dispensedDate" class="form-label">Dispensed Date</label>
-            <input type="datetime-local" class="form-control" id="dispensedDate" name="dispensedDate">
-          </div>
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Add Medication</button>

@@ -41,7 +41,7 @@ CREATE TABLE medications (
                              name VARCHAR(255) NOT NULL,
                              quantity INT NOT NULL,
                              pharmacist_id INT NOT NULL,
-                             dispensed_date DATETIME,
+                             prescribed_date DATETIME,
                              FOREIGN KEY (prescription_id) REFERENCES prescriptions(id) ON DELETE CASCADE,
                              FOREIGN KEY (pharmacist_id) REFERENCES users(id) ON DELETE CASCADE
 );
@@ -74,7 +74,7 @@ VALUES
     (1, '2024-12-15 11:00:00', 'Take one tablet daily.'),
     (2, '2024-12-16 12:00:00', 'Apply ointment twice a day.');
 
-INSERT INTO medications (prescription_id, name, quantity, pharmacist_id, dispensed_date)
+INSERT INTO medications (prescription_id, name, quantity, pharmacist_id, prescribed_date)
 VALUES
     (1, 'Paracetamol', 10, 4, '2024-12-15 13:00:00'),
     (2, 'Antibiotic Cream', 2, 5, '2024-12-16 14:00:00');

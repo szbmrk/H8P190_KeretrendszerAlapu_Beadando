@@ -24,14 +24,15 @@ public class Medication {
     @JoinColumn(name = "pharmacist_id", nullable = false)
     private User pharmacist;
 
-    @Column(name = "dispensed_date")
-    private LocalDateTime dispensedDate;
+    @Column(name = "prescribed_date")
+    private LocalDateTime prescribedDate;
 
-    public Medication() {}
+    public Medication() { this.prescribedDate = LocalDateTime.now(); }
     public Medication(Prescription prescription, String name, int quantity, User pharmacist) {
         this.prescription = prescription;
         this.name = name;
         this.quantity = quantity;
+        this.prescribedDate = LocalDateTime.now();
     }
 
     public int getId() {
@@ -74,11 +75,11 @@ public class Medication {
         this.pharmacist = pharmacist;
     }
 
-    public LocalDateTime getDispensedDate() {
-        return dispensedDate;
+    public LocalDateTime getPrescribedDate() {
+        return prescribedDate;
     }
 
-    public void setDispensedDate(LocalDateTime dispensedDate) {
-        this.dispensedDate = dispensedDate;
+    public void setPrescribedDate(LocalDateTime prescribedDate) {
+        this.prescribedDate = prescribedDate;
     }
 }
