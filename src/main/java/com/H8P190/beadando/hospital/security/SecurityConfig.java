@@ -26,13 +26,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/css/**").permitAll()
                         .requestMatchers("/api/users/**").hasRole("ADMIN")
                         .requestMatchers("/api/patients/**").hasAnyRole("ADMIN", "DOCTOR")
                         .requestMatchers("/api/appointments/**").hasAnyRole("ADMIN", "DOCTOR")
                         .requestMatchers("/api/prescriptions/**").hasAnyRole("ADMIN", "DOCTOR")
                         .requestMatchers("/api/medications/**").hasAnyRole("ADMIN", "DOCTOR")
                         .requestMatchers("/api/medications/forPharmacist/{id}").hasRole("PHARMACIST")
+                        .requestMatchers("/login", "/css/**").permitAll()
+                        .requestMatchers("/profile").hasAnyRole("ADMIN", "DOCTOR", "PHARMACIST")
                         .requestMatchers("/home").hasAnyRole("ADMIN", "DOCTOR", "PHARMACIST")
                         .requestMatchers("/users/**").hasRole("ADMIN")
                         .requestMatchers("/appointments/**").hasAnyRole("ADMIN", "DOCTOR")

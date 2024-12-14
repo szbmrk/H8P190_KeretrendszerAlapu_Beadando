@@ -24,7 +24,7 @@ public class WebController {
     }
 
     @GetMapping("/home")
-    public String homePage(Authentication authentication, Model model) {
+    public String homePage() {
         return "home";
     }
 }
