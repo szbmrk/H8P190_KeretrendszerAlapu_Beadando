@@ -23,7 +23,8 @@ public class ProfileController {
     }
 
     @GetMapping()
-    public String showProfilePage() {
+    public String showProfilePage(Model model) {
+        model.addAttribute("page", "profile");
         return "profile";
     }
 

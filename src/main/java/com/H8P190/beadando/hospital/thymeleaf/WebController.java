@@ -24,7 +24,8 @@ public class WebController {
     }
 
     @GetMapping("/home")
-    public String homePage() {
+    public String homePage(Model model) {
+        model.addAttribute("page", "home");
         return "home";
     }
 }

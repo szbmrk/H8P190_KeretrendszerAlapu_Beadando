@@ -21,12 +21,14 @@ public class UserController {
     @GetMapping
     public String listUsers(Model model) {
         model.addAttribute("users", userService.findAll());
+        model.addAttribute("page", "users");
         return "users";
     }
 
     @GetMapping("/edit/{id}")
     public String editUser(@PathVariable int id, Model model) {
         model.addAttribute("user", userService.findById(id));
+        model.addAttribute("page", "users");
         return "edit-user";
     }
 

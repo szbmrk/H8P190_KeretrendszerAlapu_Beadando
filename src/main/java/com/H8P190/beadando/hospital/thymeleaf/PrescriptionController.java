@@ -27,6 +27,7 @@ public class PrescriptionController {
     public String listPrescriptions(Model model) {
         model.addAttribute("prescriptions", prescriptionService.findAll());
         model.addAttribute("appointments", appointmentService.findAll());
+        model.addAttribute("page", "prescriptions");
         return "prescriptions";
     }
 
@@ -34,6 +35,7 @@ public class PrescriptionController {
     public String editPrescription(@PathVariable int id, Model model) {
         model.addAttribute("prescription", prescriptionService.findById(id));
         model.addAttribute("appointments", appointmentService.findAll());
+        model.addAttribute("page", "prescriptions");
         return "edit-prescription";
     }
 

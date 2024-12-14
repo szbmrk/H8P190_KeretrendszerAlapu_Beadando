@@ -21,12 +21,14 @@ public class PatientController {
     @GetMapping
     public String listPatients(Model model) {
         model.addAttribute("patients", patientService.findAll());
+        model.addAttribute("page", "patients");
         return "patients";
     }
 
     @GetMapping("/edit/{id}")
     public String editPatient(@PathVariable int id, Model model) {
         model.addAttribute("patient", patientService.findById(id));
+        model.addAttribute("page", "patients");
         return "edit-patient";
     }
 

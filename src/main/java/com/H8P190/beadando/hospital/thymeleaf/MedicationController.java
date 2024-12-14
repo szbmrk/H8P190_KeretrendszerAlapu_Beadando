@@ -28,6 +28,7 @@ public class MedicationController {
         model.addAttribute("medications", medicationService.findAll());
         model.addAttribute("prescriptions", prescriptionService.findAll());
         model.addAttribute("pharmacists", userService.findAllPharmacists());
+        model.addAttribute("page", "medications");
         return "medications";
     }
 
@@ -36,6 +37,7 @@ public class MedicationController {
         model.addAttribute("medication", medicationService.findById(id));
         model.addAttribute("prescriptions", prescriptionService.findAll());
         model.addAttribute("pharmacists", userService.findAllPharmacists());
+        model.addAttribute("page", "medications");
         return "edit-medication";
     }
 

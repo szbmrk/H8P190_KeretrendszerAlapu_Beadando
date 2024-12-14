@@ -28,6 +28,7 @@ public class AppointmentController {
         model.addAttribute("appointments", appointmentService.findAll());
         model.addAttribute("patients", patientService.findAll());
         model.addAttribute("doctors", userService.findAllDoctors());
+        model.addAttribute("page", "appointments");
         return "appointments";
     }
 
@@ -36,6 +37,7 @@ public class AppointmentController {
         model.addAttribute("appointment", appointmentService.findById(id));
         model.addAttribute("patients", patientService.findAll());
         model.addAttribute("doctors", userService.findAllDoctors());
+        model.addAttribute("page", "appointments");
         return "edit-appointment";
     }
 
