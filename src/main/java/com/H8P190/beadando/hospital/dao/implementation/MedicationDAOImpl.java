@@ -2,6 +2,7 @@ package com.H8P190.beadando.hospital.dao.implementation;
 
 import com.H8P190.beadando.hospital.dao.MedicationDAO;
 import com.H8P190.beadando.hospital.entity.Medication;
+import com.H8P190.beadando.hospital.entity.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
@@ -28,6 +29,21 @@ public class MedicationDAOImpl implements MedicationDAO {
     @Override
     public Medication findById(int id) {
         return entityManager.find(Medication.class, id);
+    }
+
+    @Override
+    public List<Medication> findForPharmacist(User pharm)
+    {
+        if (pharm == null) {
+            throw new IllegalArgumentException("Pharmacist cannot be null");
+        }
+
+        TypedQuery<Medication> query = entityManager.createQuery(
+                "SELECT m FROM Medication m WHERE m.pharmacist = :pharmacist", Medication.class
+        );
+        query.setParameter("pharmacist", pharm);
+
+        return query.getResultList();
     }
 
     @Transactional

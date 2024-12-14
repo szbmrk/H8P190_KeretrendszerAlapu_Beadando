@@ -2,10 +2,13 @@ package com.H8P190.beadando.hospital.security;
 
 import com.H8P190.beadando.hospital.entity.User;
 import com.H8P190.beadando.hospital.service.UserService;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -22,10 +25,9 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .findFirst()
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        return org.springframework.security.core.userdetails.User.builder()
-                .username(user.getUsername())
-                .password("{noop}" + user.getPassword())
-                .roles(user.getRole().name())
-                .build();
+        return new CustomUserDetails(
+                user,
+                List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()))
+        );
     }
 }

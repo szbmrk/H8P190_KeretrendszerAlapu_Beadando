@@ -9,7 +9,7 @@
 <div th:replace="fragments/navbar" th:with="page='home'"></div>
 
 <div class="container mt-5">
-    <h1 class="display-4">Welcome, <span th:text="${username}">Username</span></h1>
+    <h1 class="display-4">Welcome, <span th:text="${user.username}">Username</span></h1>
     <p class="lead">Logged in as: <span th:text="${role}">Role</span></p>
 </div>
 

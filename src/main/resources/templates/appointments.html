@@ -23,7 +23,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="appointment : ${appointments}">
+        <tr th:each="appointment : ${appointments}" th:if="${role == 'ADMIN' || (role == 'DOCTOR' && user.id == appointment.doctor.id)}">
             <td th:text="${appointment.id}"></td>
             <td th:text="${appointment.patient.firstName + ' ' + appointment.patient.lastName}"></td>
             <td th:text="${appointment.doctor.username}"></td>
@@ -61,7 +61,7 @@
                         </select>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3" th:if="${role == 'ADMIN'}">
                         <label for="doctor" class="form-label">Doctor</label>
                         <select class="form-select" id="doctor" name="doctorId" required>
                             <option th:each="doctor : ${doctors}"
@@ -69,6 +69,11 @@
                                     th:text="${doctor.username}">
                             </option>
                         </select>
+                    </div>
+                    <div class="mb-3" th:if="${role == 'DOCTOR'}">
+                        <label for="doctorHidden" class="form-label">Doctor</label>
+                        <input type="hidden" id="doctorHidden" name="doctorId" th:value="${user.id}">
+                        <input type="text" class="form-control" id="doctorDisplay" th:value="${user.username}" readonly>
                     </div>
 
                     <div class="mb-3">

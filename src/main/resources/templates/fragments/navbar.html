@@ -57,10 +57,7 @@
         <li th:if="${role == 'DOCTOR'}" class="nav-item">
           <a class="nav-link" href="/prescriptions" th:classappend="${page == 'prescriptions' ? ' active' : ''}">Prescriptions</a>
         </li>
-        <li th:if="${role == 'PHARMACIST'}" class="nav-item">
-          <a class="nav-link" href="/prescriptions" th:classappend="${page == 'prescriptions' ? ' active' : ''}">Prescriptions</a>
-        </li>
-        <li th:if="${role == 'PHARMACIST'}" class="nav-item">
+        <li th:if="${role== 'DOCTOR' || role == 'PHARMACIST'}" class="nav-item">
           <a class="nav-link" href="/medications" th:classappend="${page == 'medications' ? ' active' : ''}">Medications</a>
         </li>
 

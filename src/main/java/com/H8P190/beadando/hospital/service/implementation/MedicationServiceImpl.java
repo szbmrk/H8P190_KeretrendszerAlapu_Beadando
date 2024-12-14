@@ -2,6 +2,7 @@ package com.H8P190.beadando.hospital.service.implementation;
 
 import com.H8P190.beadando.hospital.dao.MedicationDAO;
 import com.H8P190.beadando.hospital.entity.Medication;
+import com.H8P190.beadando.hospital.entity.User;
 import com.H8P190.beadando.hospital.service.MedicationService;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,11 @@ public class MedicationServiceImpl implements MedicationService {
     @Override
     public Medication findById(int id) {
         return medicationDAO.findById(id);
+    }
+
+    @Override
+    public List<Medication> findForPharmacist(User pharm) {
+        return medicationDAO.findForPharmacist(pharm);
     }
 
     @Override

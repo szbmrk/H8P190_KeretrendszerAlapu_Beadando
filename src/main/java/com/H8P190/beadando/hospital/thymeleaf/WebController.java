@@ -25,8 +25,6 @@ public class WebController {
 
     @GetMapping("/home")
     public String homePage(Authentication authentication, Model model) {
-        String username = authentication.getName();
-        model.addAttribute("username", username);
         return "home";
     }
 }

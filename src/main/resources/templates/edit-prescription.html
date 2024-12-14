@@ -8,7 +8,7 @@
 <div th:replace="fragments/navbar" th:with="page='prescriptions'"></div>
 <div class="container mt-5">
   <h2 class="text-center mb-4">Edit Prescription</h2>
-  <form th:action="@{/prescriptions/edit}" method="post">
+  <form th:action="@{/prescriptions/edit}" method="post" th:if="${role == 'ADMIN' || (role == 'DOCTOR' && user.id == prescription.appointment.doctor.id)}">
     <input type="hidden" th:value="${prescription.id}" name="id"/>
 
     <div class="mb-3">
@@ -17,7 +17,7 @@
         <option th:each="appointment : ${appointments}"
                 th:value="${appointment.id}"
                 th:text="${appointment.id}"
-                th:selected="${appointment.id == prescription.appointment.id}">
+                th:selected="${appointment.id == prescription.appointment.id}" th:if="${role == 'ADMIN' || (role == 'DOCTOR' && user.id == appointment.doctor.id)}">
         </option>
       </select>
     </div>

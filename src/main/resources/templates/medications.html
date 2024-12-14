@@ -23,7 +23,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="medication : ${medications}">
+    <tr th:each="medication : ${medications}" th:if="${role == 'ADMIN' || (role == 'DOCTOR' && user.id == medication.prescription.appointment.doctor.id)}">
       <td th:text="${medication.id}"></td>
       <td th:text="${medication.prescription.id}"></td>
       <td th:text="${medication.name}"></td>
@@ -55,7 +55,7 @@
             <select class="form-select" id="prescription" name="prescriptionId" required>
               <option th:each="prescription : ${prescriptions}"
                       th:value="${prescription.id}"
-                      th:text="${prescription.id}">
+                      th:text="${prescription.id}" th:if="${role == 'ADMIN' || (role == 'DOCTOR' && user.id == prescription.appointment.doctor.id)}">
               </option>
             </select>
           </div>
