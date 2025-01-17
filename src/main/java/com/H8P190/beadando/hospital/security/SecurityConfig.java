@@ -31,7 +31,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/appointments/**").hasAnyRole("ADMIN", "DOCTOR")
                         .requestMatchers("/api/prescriptions/**").hasAnyRole("ADMIN", "DOCTOR")
                         .requestMatchers("/api/medications/**").hasAnyRole("ADMIN", "DOCTOR")
-                        .requestMatchers("/api/medications/forPharmacist/{id}").hasRole("PHARMACIST")
+                        .requestMatchers("/api/medications/forPharmacist/{id}").hasAnyRole("ADMIN", "PHARMACIST")
                         .requestMatchers("/login", "/css/**").permitAll()
                         .requestMatchers("/profile").hasAnyRole("ADMIN", "DOCTOR", "PHARMACIST")
                         .requestMatchers("/home").hasAnyRole("ADMIN", "DOCTOR", "PHARMACIST")
